@@ -1,0 +1,34 @@
+{
+  "name": "masker",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/lizheng/masker",
+  "author": "",
+  "maintainers": [
+    ""
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lizheng/masker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lizheng/masker/issues"
+  },
+  "licenses": "MIT",
+  "spm": {
+    "main": "index.js",
+    "dependencies": {
+      "jquery": "1.8.3",
+      "events": "1.2.0"
+    },
+    "devDependencies": {
+      "expect.js": "0.3.1",
+      "seajs": "2.2.1"
+    },
+    "engines": {
+      "seajs": "2.2.1"
+    },
+    "tests": "tests/*.js"
+  }
+}
