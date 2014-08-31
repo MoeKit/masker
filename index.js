@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var uuid = window.__masker_uuid = window.__masker_uuid ? window.__masker_uuid++ : 1;
+var isIE6 = /msie 6/i.test(navigator.userAgent);
 var defaults = {
     opacity: .5,
     backgroundColor: '#000',
@@ -35,8 +36,18 @@ var Masker = function(option) {
             backgroundColor: this.o.backgroundColor,
             opacity: this.o.opacity,
             display: 'none',
-        })
-        .appendTo('body');
+        });
+
+    // if element is document or body and not in IE6
+    if (!isIE6 && (this.$target.is(document) || this.$target.is('body'))) {
+        this.$mask.css({
+            position: 'fixed',
+            width: '100%',
+            height: '100%'
+        });
+    }
+
+    this.$mask.appendTo('body');
     return this;
 };
 
@@ -55,7 +66,7 @@ Masker.prototype.hide = function() {
 };
 
 
-var Events = require('events');
+var Events = require('eventor');
 // mixin
 Events.mixTo(Masker);
 
