@@ -1,3 +1,4 @@
+// add share option support, so not creat mask element every time
 var $ = require('jquery');
 var uuid = window.__masker_uuid = window.__masker_uuid ? window.__masker_uuid++ : 1;
 var defaults = {
@@ -5,7 +6,7 @@ var defaults = {
     backgroundColor: '#000',
     zIndex: 38
 };
-var Masker = function(option) {
+var Masker = function (option) {
     this.o = $.extend({}, defaults, option);
     this.$target = $(option.target);
     this.$target.data('mk-masker-uuid', uuid);
@@ -16,7 +17,7 @@ var Masker = function(option) {
         left: 0
     };
     // get width
-    var dimensions = {
+    this.dimensions = {
         width: this.$target.outerWidth(),
         height: this.$target.outerHeight()
     };
@@ -30,23 +31,34 @@ var Masker = function(option) {
             position: 'absolute',
             top: offset.top,
             left: offset.left,
-            width: dimensions.width,
-            height: dimensions.height,
+            width: this.dimensions.width,
+            height: this.dimensions.height,
             backgroundColor: this.o.backgroundColor,
             opacity: this.o.opacity,
             display: 'none',
+            zIndex: this.o.zIndex
         })
         .appendTo('body');
     return this;
 };
 
-Masker.prototype.show = function() {
+Masker.prototype.show = function (doUpdate) {
+    if (doUpdate) {
+        this.dimensions = {
+            width: this.$target.outerWidth(),
+            height: this.$target.outerHeight()
+        };
+        this.$mask.css({
+            width: this.dimensions.width,
+            height: this.dimensions.height
+        });
+    }
     this.$mask.show();
     this.trigger('show');
     return this;
 };
 
-Masker.prototype.hide = function() {
+Masker.prototype.hide = function () {
     this.$mask.css({
         //opacity:0
     }).hide();
