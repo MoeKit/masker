@@ -2,7 +2,7 @@
 
 ---
 
-## textarea
+## document
 
 ````html
 <button id="show">显示</button>
