@@ -9,20 +9,25 @@ var defaults = {
 };
 var Masker = function(option) {
     this.o = $.extend({}, defaults, option);
-    this.$target = $(option.target||document);
+    this.$target = $(option.target || document);
     this.$target.data('mk-masker-uuid', uuid);
     // get position
     // for document or window, return zero
-    var offset = this.$target.offset() ? this.$target.offset() : {
-        top: 0,
-        left: 0
-    };
+    var offset = {};
+
+    if (this.$target.is(document)) {
+        offset = {
+            top: 0,
+            left: 0
+        }
+    } else {
+        offset = getPosition(this.$target[0]);
+    }
     // get width
     this.dimensions = {
         width: this.$target.outerWidth(),
         height: this.$target.outerHeight()
     };
-
 
     // create a mask
     this.$mask = $('<div/>')
@@ -38,8 +43,8 @@ var Masker = function(option) {
             opacity: this.o.opacity,
             display: 'none',
             zIndex: this.o.zIndex,
-            transition:'all 500ms linear',
-            '-webkit-transition':'all 500ms linear'
+            transition: 'all 500ms linear',
+            '-webkit-transition': 'all 500ms linear'
         });
 
 
@@ -56,8 +61,9 @@ var Masker = function(option) {
     return this;
 };
 
+// will caculate position again by default
 Masker.prototype.show = function(doUpdate) {
-    if (doUpdate) {
+    if (doUpdate !== false) {
         this.dimensions = {
             width: this.$target.outerWidth(),
             height: this.$target.outerHeight()
@@ -66,7 +72,12 @@ Masker.prototype.show = function(doUpdate) {
             width: this.dimensions.width,
             height: this.dimensions.height
         });
+
+        if (!this.$target.is(document)) {
+            this.$mask.css(getPosition(this.$target[0]));
+        }
     }
+
     this.$mask.show();
     this.emit('show');
     return this;
@@ -93,6 +104,18 @@ function unmask(target) {
     }
 }
 
+// get position
+function getPosition(el) {
+    return {
+        top: el.getBoundingClientRect().top + getTop(),
+        left: el.getBoundingClientRect().left + document.documentElement.scrollLeft,
+    }
+}
+
+function getTop() {
+    return document.body ? document.body.scrollTop :
+        document.documentElement.scrollTop;
+}
 
 module.exports = Masker;
 module.exports.unmask = unmask;

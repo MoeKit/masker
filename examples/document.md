@@ -13,7 +13,8 @@ var Masker = require('masker');
 var $ = require('jquery');
 var masker = new Masker({
     backgroundColor:'#000',
-    opacity:.8
+    opacity:.8,
+    zIndex:888
 });
 
 $('#show').click(function(){
