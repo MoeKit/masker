@@ -9,7 +9,7 @@ var defaults = {
 };
 var Masker = function(option) {
     this.o = $.extend({}, defaults, option);
-    this.$target = $(option.target);
+    this.$target = $(option.target||document);
     this.$target.data('mk-masker-uuid', uuid);
     // get position
     // for document or window, return zero

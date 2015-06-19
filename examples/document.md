@@ -12,7 +12,6 @@
 var Masker = require('masker');
 var $ = require('jquery');
 var masker = new Masker({
-    target:document,
     backgroundColor:'#000',
     opacity:.8
 });
