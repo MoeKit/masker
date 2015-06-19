@@ -10,23 +10,23 @@
 ````
 
 ````javascript
-seajs.use(['index','jquery'], function(Masker,$) {
-    var masker = new Masker({
-        target:document,
-        backgroundColor:'#000',
-        opacity:.8
-    });
-
-    $('#show').click(function(){
-     masker.show();
-     setTimeout(function(){
-        masker.hide();
-        },2000)
-    });
-
-     $('#hide').click(function(){
-         masker.hide();
-        });
-
+var Masker = require('masker');
+var $ = require('jquery');
+var masker = new Masker({
+    target:document,
+    backgroundColor:'#000',
+    opacity:.8
 });
+
+$('#show').click(function(){
+ masker.show();
+ setTimeout(function(){
+    masker.hide();
+    },2000)
+});
+
+$('#hide').click(function(){
+    masker.hide();
+});
+
 ````

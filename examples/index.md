@@ -11,19 +11,18 @@
 ````
 
 ````javascript
-seajs.use(['index','jquery'], function(Masker,$) {
-    var masker = new Masker({
-        target:'#textarea1',
-        backgroundColor:'#ccc'
-    });
-
-    $('#show').click(function(){
-     masker.show();
-    });
-
-     $('#hide').click(function(){
-         masker.hide();
-        });
-
+var Masker = require('masker');
+var $ = require('jquery');
+var masker = new Masker({
+    target:'#textarea1',
+    backgroundColor:'#ccc'
 });
+$('#show').click(function(){
+ masker.show();
+});
+
+$('#hide').click(function(){
+ masker.hide();
+});
+
 ````
