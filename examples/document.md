@@ -2,11 +2,10 @@
 
 ---
 
-## textarea
+## document
 
 ````html
-<button id="show">显示</button>
-<button id="hide">关闭</button>
+<button id="show" class="demo-btn">显示全屏遮罩，2s后关闭</button>
 ````
 
 ````javascript

@@ -7,7 +7,7 @@ var defaults = {
     backgroundColor: '#000',
     zIndex: 38
 };
-var Masker = function (option) {
+var Masker = function(option) {
     this.o = $.extend({}, defaults, option);
     this.$target = $(option.target);
     this.$target.data('mk-masker-uuid', uuid);
@@ -37,7 +37,9 @@ var Masker = function (option) {
             backgroundColor: this.o.backgroundColor,
             opacity: this.o.opacity,
             display: 'none',
-            zIndex: this.o.zIndex
+            zIndex: this.o.zIndex,
+            transition:'all 500ms linear',
+            '-webkit-transition':'all 500ms linear'
         });
 
 
@@ -54,7 +56,7 @@ var Masker = function (option) {
     return this;
 };
 
-Masker.prototype.show = function (doUpdate) {
+Masker.prototype.show = function(doUpdate) {
     if (doUpdate) {
         this.dimensions = {
             width: this.$target.outerWidth(),
@@ -66,15 +68,15 @@ Masker.prototype.show = function (doUpdate) {
         });
     }
     this.$mask.show();
-    this.trigger('show');
+    this.emit('show');
     return this;
 };
 
-Masker.prototype.hide = function () {
+Masker.prototype.hide = function() {
     this.$mask.css({
         //opacity:0
     }).hide();
-    this.trigger('hide');
+    this.emit('hide');
     return this;
 };
 
@@ -83,5 +85,14 @@ var Events = require('eventor');
 // mixin
 Events.mixTo(Masker);
 
+// static function
+function unmask(target) {
+    var maskerUid = $(target).data('mk-masker-uuid');
+    if (maskerUid && $('#mk-masker-' + maskerUid) && $('#mk-masker-' + maskerUid).is(':visible')) {
+        $('#mk-masker-' + maskerUid).hide();
+    }
+}
+
 
 module.exports = Masker;
+module.exports.unmask = unmask;

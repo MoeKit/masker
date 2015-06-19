@@ -1,27 +1,32 @@
-# masker
+# Masker
 
 ---
 
 [![spm version](http://spmjs.io/badge/masker)](http://spmjs.io/package/masker)
 
-An awesome spm package!
+遮罩层
 
 ---
 
-## Install
-
-```
-$ spm install masker --save
-```
 
 ## Usage
 
 ```js
-var masker = require('masker');
+var Masker = require('index');
 // use masker
+var masker = new Masker({
+    target:'#textarea1',
+    backgroundColor:'#ccc'
+});
 ```
 
-## Api
+### 选项
 
-Here is more details.
+Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
